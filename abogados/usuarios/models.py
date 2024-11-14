@@ -6,6 +6,7 @@ from django.db import models
 class Usuario(models.Model):  
     nombre = models.CharField(max_length=255)
     correo = models.EmailField(unique=True)  
+    contrasena = models.CharField(max_length=128)  # Se utiliza CharField para guardar la contraseña encriptada
     telefono = models.CharField(max_length=15, blank=True, null=True)
     direccion = models.TextField(blank=True, null=True)
     fecha_registro = models.DateTimeField(auto_now_add=True) 
@@ -18,10 +19,11 @@ class Usuario(models.Model):
 class Abogado(models.Model):
     nombre = models.CharField(max_length=255)
     correo = models.EmailField(unique=True) 
+    contrasena = models.CharField(max_length=128)
     documento = models.CharField(max_length=20, unique=True)
     telefono = models.CharField(max_length=15, blank=True, null=True)  
     fecha_registro = models.DateTimeField(auto_now_add=True) 
-
+    
     def __str__(self):
         return self.nombre
     
