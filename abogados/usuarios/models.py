@@ -3,23 +3,36 @@ from django.db import models
 # Create your models here.
 
 # Models_Usuario
-class Usuario(models.Model): 
-    IdUsuario = models.CharField(max_length=20,unique=True)
-    nombre_usuario = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    contrasena = models.CharField(max_length=20)
+class Usuario(models.Model):  
+    nombre = models.CharField(max_length=255)
+    correo = models.EmailField(unique=True)  
+    telefono = models.CharField(max_length=15, blank=True, null=True)
+    direccion = models.TextField(blank=True, null=True)
+    fecha_registro = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self):
-        return f"{self.nombre_usuario} ({self.IdUsuario}) ({self.email})"
+        return self.nombre
 
 
 # Models_Abogados
-class Abogados(models.Model):
-    IdAbogado = models.CharField(max_length=20,unique=True)
-    especialidad = models.CharField(max_length=100)
-    nombre_abogado = models.CharField(max_length=100)
-    email = models.CharField(max_length=50,unique=True)
-    caso_actual = models.CharField(max_length=255)
+class Abogado(models.Model):
+    nombre = models.CharField(max_length=255)
+    correo = models.EmailField(unique=True) 
+    documento = models.CharField(max_length=20, unique=True)
+    telefono = models.CharField(max_length=15, blank=True, null=True)  
+    fecha_registro = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self):
-        return f"{self.IdAbogado} ({self.nombre_abogado}) ({self.especialidad}) ({self.email}) ({self.caso_actual})"
+        return self.nombre
+    
+
+# Models_caso
+class Caso(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    abogado = models.ForeignKey(Abogado, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    fecha_solicitud = models.DateTimeField(auto_now_add=True)
+    estado = models.CharField(max_length=50, default='Pendiente')
+
+    def __str__(self):
+        return f"Caso {self.id} - {self.estado}"
