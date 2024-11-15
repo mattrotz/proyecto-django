@@ -1,21 +1,29 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Usuario, Abogado
-from django.views import View
 
 def abogados(request):
     abogados = Abogado.objects.all()
-    return render(request, 'lista-abogados/lista.html', {'abogados': abogados})
+    return render(request, 'listas/lista-lawyer.html', {'abogados': abogados})
+def usuarios(request):
+    #usuarios = Usuarios.objects.all()
+    return render(request, 'listas/lista-user.html', {'usuarios': usuarios})
 
-class AbogadoView(View):
-    def post(self, request):
-        nombre = request.POST.get('nombre')
-        correo = request.POST.get('correo')
-        documento = request.POST.get('documento')
-        telefono = request.POST.get('telefono')
 
-        Abogado.objects.create(nombre=nombre, correo=correo, documento=documento, telefono=telefono)
-        return redirect('lista-abogados')
+def registrar_abogado(request): 
+    if request.method == 'POST': 
+        nombre = request.POST.get('nombre') 
+        correo = request.POST.get('correo') 
+        contrasena = request.POST.get('contrasena') 
+        documento = request.POST.get('documento')  
+        telefono = request.POST.get('telefono') 
+        
+        Abogado.objects.create(nombre=nombre, correo=correo, contrasena=contrasena, documento=documento, telefono=telefono) 
+        
+        return redirect('lista-abogados') 
 
-    def get(self, request):
-        return render(request, 'auth/registrarse.html')
+def eliminar_abogado(request, documento):
+    abogado = Abogado.objects.get(documento=documento)
+    abogado.delete()
+
+    return redirect('lista-abogados')

@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'abogados.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('proyecto-django')))  
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('abogados')))  
 
 DATABASES = {
     'default': {
