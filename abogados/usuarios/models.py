@@ -4,12 +4,12 @@ from django.db import models
 
 # Models_Usuario
 class Usuario(models.Model):  
-    nombre = models.CharField(max_length=255)
-    correo = models.EmailField(unique=True)  
-    contrasena = models.CharField(max_length=128) 
-    telefono = models.CharField(max_length=15, blank=True, null=True)
-    direccion = models.TextField(blank=True, null=True)
-    fecha_registro = models.DateTimeField(auto_now_add=True) 
+    nombre_usuarios = models.CharField(max_length=255)
+    correo_usuarios = models.EmailField(unique=True)  
+    contrasena_usuarios = models.CharField(max_length=128) 
+    telefono_usuarios = models.CharField(max_length=15, blank=True, null=True)
+    direccion_usuarios = models.TextField(blank=True, null=True)
+    fecha_registro_usuarios = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self):
         return self.nombre
@@ -17,12 +17,12 @@ class Usuario(models.Model):
 
 # Models_Abogados
 class Abogado(models.Model):
-    nombre = models.CharField(max_length=255)
-    correo = models.EmailField(unique=True) 
-    contrasena = models.CharField(max_length=128)
-    documento = models.CharField(max_length=20, unique=True)
-    telefono = models.CharField(max_length=15, blank=True, null=True)  
-    fecha_registro = models.DateTimeField(auto_now_add=True) 
+    nombre_abogado = models.CharField(max_length=255)
+    correo_abogado = models.EmailField(unique=True) 
+    contrasena_abogado = models.CharField(max_length=128)
+    documento_abogado = models.CharField(max_length=20, unique=True)
+    telefono_abogado = models.CharField(max_length=15, blank=True, null=True)  
+    fecha_registro_abogado = models.DateTimeField(auto_now_add=True) 
     
     def __str__(self):
         return self.nombre

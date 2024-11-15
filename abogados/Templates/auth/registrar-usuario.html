@@ -1,0 +1,99 @@
+{% extends 'base.html'%} {%load static %} {% block content %}
+<div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-slate-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <form method="POST" action="usuarios/registro-usuarios/">
+        {% csrf_token %}
+        <div>
+          <label class="block text-sm font-medium text-white" for="nombre">
+            Nombre
+          </label>
+          <div class="mt-1">
+            <input
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-800 text-white"
+              required=""
+              type="text"
+              name="nombre"
+              id="nombre"
+              placeholder="Nombre"
+            />
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label class="block text-sm font-medium text-white" for="correo">
+            Correo
+          </label>
+          <div class="mt-1">
+            <input
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-800 text-white"
+              type="email"
+              name="correo"
+              id="correo"
+              placeholder="Correo"
+            />
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label class="block text-sm font-medium text-white" for="contrasena">
+            Contraseña
+          </label>
+          <div class="mt-1">
+            <input
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-800 text-white"
+              required=""
+              type="password"
+              name="contrasena"
+              id="contrasena"
+              placeholder="Contraseña"
+            />
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label class="block text-sm font-medium text-white" for="telefono">
+            Teléfono
+          </label>
+          <div class="mt-1">
+            <input
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-800 text-white"
+              required=""
+              type="text"
+              name="telefono"
+              id="telefono"
+              placeholder="Teléfono"
+            />
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label class="block text-sm font-medium text-white" for="documento">
+            Direccion
+          </label>
+          <div class="mt-1">
+            <input
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-800 text-white"
+              required=""
+              type="text"
+              name="direccion"
+              id="direccion"
+              placeholder="Direccion"
+            />
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button
+            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            type="submit"
+          >
+            Enviar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

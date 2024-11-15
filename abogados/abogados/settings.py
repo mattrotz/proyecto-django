@@ -81,7 +81,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath('abogados')))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'DBAbogados.db'),  # Verifica que esta ruta sea correcta
+        'NAME': os.path.join(BASE_DIR, 'DB_aplicativo.db'),  # Verifica que esta ruta sea correcta
     }
 }
 
