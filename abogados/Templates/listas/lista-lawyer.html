@@ -18,25 +18,20 @@
         <tbody class="bg-gray-600 text-white">
           {% for a in abogados %}
           <tr class="hover:bg-slate-500">
-            <td class="px-4 py-2">{{ a.nombre }}</td>
-            <td class="px-4 py-2">{{ a.correo }}</td>
-            <td class="px-4 py-2">{{ a.documento }}</td>
-            <td class="px-4 py-2">{{ a.telefono }}</td>
+            <td class="px-4 py-2">{{ a.nombre_abogado }}</td>
+            <td class="px-4 py-2">{{ a.correo_abogado }}</td>
+            <td class="px-4 py-2">{{ a.documento_abogado }}</td>
+            <td class="px-4 py-2">{{ a.telefono_abogado }}</td>
             <td class="px-4 py-2 flex space-x-2">
               <a
                 class="bg-green-600 text-white py-1 px-2 rounded hover:bg-green-700"
-                href="/usuarios/edicion-abogado/{{a.documento}}"
+                href="/usuarios/edicion-abogado/{{a.documento_abogado}}"
                 >Editar</a
               >
               <a
                 class="bg-red-600 text-white py-1 px-2 rounded hover:bg-red-700"
-                href="eliminar/{{a.documento}}"
+                href="eliminar-abogado/{{a.documento_abogado}}"
                 >Eliminar</a
-              >
-              <a
-                class="bg-sky-600 text-white py-1 px-2 rounded hover:bg-sky-700"
-                href="Ver/{{a.documento}}"
-                >Visualizar</a
               >
             </td>
           </tr>

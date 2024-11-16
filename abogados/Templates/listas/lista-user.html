@@ -16,26 +16,21 @@
         <tbody class="bg-gray-600">
           {% for u in usuarios %}
           <tr class="border-t border-gray-300">
-            <td class="px-4 py-3">{{ u.nombre }}</td>
-            <td class="px-4 py-3">{{ u.correo }}</td>
-            <td class="px-4 py-3">{{ u.direccion }}</td>
-            <td class="px-4 py-3">{{ u.telefono }}</td>
+            <td class="px-4 py-3">{{ u.nombre_usuarios }}</td>
+            <td class="px-4 py-3">{{ u.correo_usuarios }}</td>
+            <td class="px-4 py-3">{{ u.direccion_usuarios }}</td>
+            <td class="px-4 py-3">{{ u.telefono_usuarios }}</td>
             <td class="px-4 py-3 flex space-x-2">
               <a
                 class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-500 transition-all"
-                href="edicion/{{ u.documento }}"
+                href="/usuarios/edicion-usuarios/{{ u.correo_usuarios }}"
                 >Editar</a
               >
               <a
                 class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500 transition-all"
-                href="/lista-usuarios/eliminar/{{ u.correo }}"
+                href="/usuarios/lista-usuarios/eliminar-usuarios/{{u.correo_usuarios}}"
                 >Eliminar</a
               >
-              <a
-                class="bg-sky-600 text-white py-2 px-4 rounded-md hover:bg-sky-500 transition-all"
-                href="Ver/{{ u.documento }}"
-                >Visualizar</a
-              >
             </td>
           </tr>
           {% endfor %}
@@ -45,101 +40,136 @@
   </div>
 </section>
 
-<section class="relative bg-slate-700 w-full py-8 p-4">
-  <div class="flex flex-col w-full items-center content-center">
-    <h1 class="text-2xl font-bold text-white mb-8">
-      Selecciona a un Abogado y Envia tu Mensaje
-    </h1>
-
-    <button
-      id="showLawyersBtn"
-      class="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 transition-all mb-8"
-    >
-      Elegir Abogado
-    </button>
-
-    <div id="lawyerTableContainer" class="hidden w-full overflow-x-auto">
-      <table
-        class="w-full table-auto bg-slate-600 shadow-lg rounded-lg overflow-hidden"
-      >
-        <thead class="bg-slate-800 text-white">
-          <tr>
-            <th class="px-4 py-2 font-medium">Nombre</th>
-            <th class="px-4 py-2 font-medium">Correo</th>
-            <th class="px-4 py-2 font-medium">Teléfono</th>
-            <th class="px-4 py-2 font-medium">Seleccionar</th>
-          </tr>
-        </thead>
-        <tbody class="bg-gray-600 text-white">
-          {% for a in abogados %}
-          <tr class="hover:bg-slate-500">
-            <td class="px-4 py-2">{{ a.nombre }}</td>
-            <td class="px-4 py-2">{{ a.correo }}</td>
-            <td class="px-4 py-2">{{ a.telefono }}</td>
-            <td class="px-4 py-2 text-center">
-              <form
-                action="/seleccionar-abogado/{{ a.documento }}"
-                method="POST"
-              >
-                <button
-                  type="submit"
-                  class="bg-indigo-600 text-white py-1 px-3 rounded-lg hover:bg-indigo-700 transition-all"
-                >
-                  Seleccionar
-                </button>
-              </form>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-
-    <div
-      id="messageForm"
-      class="hidden w-full max-w-lg mt-8 bg-slate-600 p-6 rounded-lg shadow-lg"
-    >
-      <h2 class="text-xl font-semibold text-white mb-4">Detalles de tu Caso</h2>
-      <textarea
-        id="caseMessage"
-        class="w-full p-4 bg-slate-500 text-white rounded-lg mb-4"
-        rows="6"
-        placeholder="Escribe los detalles de tu caso aquí..."
-      ></textarea>
-      <button
-        id="sendMessageBtn"
-        class="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition-all w-full"
-      >
-        Enviar Mensaje
-      </button>
-    </div>
-  </div>
-</section>
-
-<script>
-  document
-    .getElementById("showLawyersBtn")
-    .addEventListener("click", function () {
-      document
-        .getElementById("lawyerTableContainer")
-        .classList.remove("hidden");
-
-      document.getElementById("messageForm").classList.remove("hidden");
-    });
-
-  document
-    .getElementById("sendMessageBtn")
-    .addEventListener("click", function () {
-      const message = document.getElementById("caseMessage").value;
-
-      if (message.trim() === "") {
-        alert("Por favor, ingresa los detalles de tu caso.");
-      } else {
-        alert("Mensaje enviado: " + message);
-
-        document.getElementById("caseMessage").value = "";
+    <style>
+      .modal {
+        display: none;
       }
-    });
-</script>
-
-{% endblock %}
+      .modal-active {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <div class="container mx-auto p-6">
+      <h1 class="text-3xl font-bold mb-4 text-center text-white ">     
+        Avance del Caso Judicial
+      </h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-green-600 text-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-2">
+            Caso #123: Robo en la Joyería
+          </h2>
+          <p class="mb-4">
+            El juicio comenzó el 10 de noviembre de 2024. Los testigos han
+            presentado pruebas cruciales en el tribunal.
+          </p>
+          <button
+            class="bg-white text-blue-500 py-2 px-4 rounded hover:bg-gray-200"
+            onclick="openModal('modal1')"
+          >
+            Leer más
+          </button>
+        </div>
+        <div class="bg-green-600 text-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-2">Caso #124: Fraude Fiscal</h2>
+          <p class="mb-4">
+            Se han descubierto nuevos documentos que podrían cambiar el rumbo
+            del caso. El juez ha solicitado una revisión adicional.
+          </p>
+          <button
+            class="bg-white text-blue-500 py-2 px-4 rounded hover:bg-gray-200"
+            onclick="openModal('modal2')"
+          >
+            Leer más
+          </button>
+        </div>
+        <div class="bg-green-600 text-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-2">
+            Caso #125: Violación de Patentes
+          </h2>
+          <p class="mb-4">
+            Los abogados de ambas partes han presentado nuevos argumentos, y se
+            espera un veredicto para fin de mes.
+          </p>
+          <button
+            class="bg-white text-blue-500 py-2 px-4 rounded hover:bg-gray-200"
+            onclick="openModal('modal3')"
+          >
+            Leer más
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Modales -->
+    <div
+      id="modal1"
+      class="fixed z-10 inset-0 overflow-y-auto modal bg-gray-800 bg-opacity-75"
+    >
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded shadow-lg max-w-lg mx-auto">
+          <h2 class="text-xl font-semibold mb-4">
+            Caso #123: Robo en la Joyería
+          </h2>
+          <p class="text-gray-600">
+            Detalles adicionales sobre el avance del caso de robo en la joyería.
+          </p>
+          <button
+            class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700"
+            onclick="closeModal('modal1')"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      id="modal2"
+      class="fixed z-10 inset-0 overflow-y-auto modal bg-gray-800 bg-opacity-75"
+    >
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded shadow-lg max-w-lg mx-auto">
+          <h2 class="text-xl font-semibold mb-4">Caso #124: Fraude Fiscal</h2>
+          <p class="text-gray-600">
+            Detalles adicionales sobre el caso de fraude fiscal.
+          </p>
+          <button
+            class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700"
+            onclick="closeModal('modal2')"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      id="modal3"
+      class="fixed z-10 inset-0 overflow-y-auto modal bg-gray-800 bg-opacity-75"
+    >
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded shadow-lg max-w-lg mx-auto">
+          <h2 class="text-xl font-semibold mb-4">
+            Caso #125: Violación de Patentes
+          </h2>
+          <p class="text-gray-600">
+            Detalles adicionales sobre el caso de violación de patentes.
+          </p>
+          <button
+            class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700"
+            onclick="closeModal('modal3')"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      function openModal(modalId) {
+        document.getElementById(modalId).classList.add("modal-active");
+      }
+      function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove("modal-active");
+      }
+    </script>
+    {% endblock %}
+  </body>
+</html>

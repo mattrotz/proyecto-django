@@ -1,8 +1,8 @@
-{% extends 'base.html'%} {%load static %} {% block content %}
+{% extends 'base.html'%} {% load static %} {% block content %}
 <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
     <div class="bg-slate-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
-      <form method="POST" action="usuarios/registro-abogados/">
+      <form method="POST" action="{% url 'registro_abogado' %}">
         {% csrf_token %}
         <div>
           <label class="block text-sm font-medium text-white" for="nombre">
@@ -95,5 +95,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

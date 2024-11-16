@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %}
+
+<section class="w-full flex items-center justify-center">
+  <div class="bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-lg">
+    <h2 class="text-2xl font-bold text-white mb-6">Crear Caso</h2>
+    <form method="post" action="{% url 'crear_caso' %}">
+      {% csrf_token %}
+
+      <!-- Selección de Usuario -->
+      <div
+        class="relative group rounded-lg w-full bg-gray-600 overflow-hidden mb-4"
+      >
+        <select
+          name="usuario"
+          required
+          class="appearance-none hover:placeholder-shown:bg-emerald-500 relative text-white bg-transparent ring-0 outline-none border placeholder-violet-700 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5"
+        >
+          <option value="" disabled selected>Selecciona un Usuario</option>
+          {% for usuario in usuarios %}
+          <option value="{{ usuario.id }}">
+            {{ usuario.nombre_usuarios }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Selección de Abogado -->
+      <div
+        class="relative group rounded-lg w-full bg-gray-600 overflow-hidden mb-4"
+      >
+        <select
+          name="abogado"
+          required
+          class="appearance-none hover:placeholder-shown:bg-emerald-500 relative text-white bg-transparent ring-0 outline-none border placeholder-violet-700 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5"
+        >
+          <option value="" disabled selected>Selecciona un Abogado</option>
+          {% for abogado in abogados %}
+          <option value="{{ abogado.id }}">{{ abogado.nombre_abogado }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Descripción del Caso -->
+      <div
+        class="relative group rounded-lg w-full bg-gray-600 overflow-hidden mb-4"
+      >
+        <textarea
+          name="descripcion"
+          required
+          rows="4"
+          class="appearance-none hover:placeholder-shown:bg-emerald-500 relative text-white bg-transparent ring-0 outline-none border placeholder-violet-700 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5"
+          placeholder="Descripción del Caso"
+        ></textarea>
+      </div>
+
+      <!-- Botón de envío -->
+      <button
+        type="submit"
+        class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+      >
+        Enviar
+      </button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
